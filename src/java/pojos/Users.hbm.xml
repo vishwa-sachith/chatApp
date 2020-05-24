@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 8, 2017 10:19:19 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.Users" table="users" catalog="chat_app" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="45" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="8" />
+        </property>
+        <set name="privatesForRese" table="private" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="rese" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Private" />
+        </set>
+        <set name="privatesForSender" table="private" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sender" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Private" />
+        </set>
+        <set name="publics" table="public" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="sender" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Public" />
+        </set>
+    </class>
+</hibernate-mapping>
